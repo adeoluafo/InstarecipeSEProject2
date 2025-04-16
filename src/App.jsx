@@ -1,28 +1,21 @@
 import { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
-
-// 🌍 Global contexts for managing shared app state
 import {
   UserContext,
   RecipesContext,
   FavoritesContext,
   LastExploredContext,
 } from "./UserContext.js";
-
-// 🧩 App pages
 import HomePage from "./Pages/HomePage/Homepage.jsx";
 import RecipeDetailsPage from "./Pages/RecipeDetailsPage/RecipeDetailsPage.jsx";
+import "bootstrap/dist/css/bootstrap.min.css";
 import SearchPage from "./Pages/SearchPage/SearchPage.jsx";
 import DashboardPage from "./Pages/DashboardPage/DashboardPage.jsx";
 import FavoritesPage from "./Pages/FavoritesPage/FavoritesPage.jsx";
 
-// 💄 Bootstrap CSS
-import "bootstrap/dist/css/bootstrap.min.css";
-
-// 🔧 Main App Component
 function App() {
-  // 🧠 User context (login session, auth, etc.)
+  //initialize all isecontext variables
   const [userContext, setUserContext] = useState(() => {
     try {
       const storedUser = localStorage.getItem("userContext");
@@ -32,8 +25,6 @@ function App() {
       return null;
     }
   });
-
-  // 🍽️ Recipes context (global list of recipes)
   const [recipesContext, setRecipesContext] = useState(() => {
     try {
       const storedRecipes = localStorage.getItem("recipesContext");
@@ -43,8 +34,6 @@ function App() {
       return null;
     }
   });
-
-  // 💖 Favorites context (recipes marked as favorites)
   const [favoritesContext, setFavoritesContext] = useState(() => {
     try {
       const storedFavorites = localStorage.getItem("favoritesContext");
@@ -54,8 +43,6 @@ function App() {
       return null;
     }
   });
-
-  // 🌍 Last explored cuisine (used for personalization/recommendations)
   const [lastExploredContext, setLastExploredContext] = useState(() => {
     try {
       const storedLastExplored = localStorage.getItem("lastExploredContext");
@@ -66,49 +53,46 @@ function App() {
     }
   });
 
-  // 💾 Sync context data to localStorage when it changes
   useEffect(() => {
+    // Save the usecontext data to storage whenever the state changes
     if (userContext) {
       localStorage.setItem("userContext", JSON.stringify(userContext));
     } else {
       localStorage.removeItem("userContext");
     }
-
     if (recipesContext) {
       localStorage.setItem("recipesContext", JSON.stringify(recipesContext));
     } else {
       localStorage.removeItem("recipesContext");
     }
-
     if (favoritesContext) {
-      localStorage.setItem("favoritesContext", JSON.stringify(favoritesContext));
+      localStorage.setItem(
+        "favoritesContext",
+        JSON.stringify(favoritesContext)
+      );
     } else {
       localStorage.removeItem("favoritesContext");
     }
-
     if (lastExploredContext) {
-      localStorage.setItem("lastExploredContext", JSON.stringify(lastExploredContext));
+      localStorage.setItem(
+        "lastExploredContext",
+        JSON.stringify(lastExploredContext)
+      );
     } else {
       localStorage.removeItem("lastExploredContext");
     }
   }, [userContext, recipesContext, favoritesContext, lastExploredContext]);
-
-  // 🧱 App layout and route definitions wrapped with context providers
+  //wrap the usecontext around your declared routes
   return (
     <div className="app">
-      {/* Global user authentication context */}
       <UserContext.Provider value={{ userContext, setUserContext }}>
-
-        {/* Global recipes context */}
         <RecipesContext.Provider value={{ recipesContext, setRecipesContext }}>
-
-          {/* Global favorites context */}
-          <FavoritesContext.Provider value={{ favoritesContext, setFavoritesContext }}>
-
-            {/* Global context for last explored cuisine (used in recommendations) */}
-            <LastExploredContext.Provider value={{ lastExploredContext, setLastExploredContext }}>
-
-              {/* 🌐 Routing for the app */}
+          <FavoritesContext.Provider
+            value={{ favoritesContext, setFavoritesContext }}
+          >
+            <LastExploredContext.Provider
+              value={{ lastExploredContext, setLastExploredContext }}
+            >
               <BrowserRouter>
                 <Routes>
                   <Route path="/" element={<HomePage />} />
@@ -118,13 +102,9 @@ function App() {
                   <Route path="/favorites" element={<FavoritesPage />} />
                 </Routes>
               </BrowserRouter>
-
             </LastExploredContext.Provider>
-
           </FavoritesContext.Provider>
-
         </RecipesContext.Provider>
-
       </UserContext.Provider>
     </div>
   );

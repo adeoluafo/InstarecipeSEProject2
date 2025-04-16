@@ -3,7 +3,7 @@ import "./LeftPanelSearch.css";
 import Form from "react-bootstrap/Form";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
 import { useNavigate } from "react-router-dom";
-import { RecipesContext } from "../../UserContext"; // assuming you're using this for all recipes
+import { RecipesContext } from "../../UserContext";
 
 export default function LeftPanelSearch({
   setDuration,
@@ -29,7 +29,7 @@ export default function LeftPanelSearch({
     <div style={{ textAlign: "left", marginTop: "20px" }}>
       <h2 style={{ marginBottom: "30px" }}>Recipes</h2>
 
-      {/* 🔥 Trending Recipe Dropdown */}
+      {/* 🔥 Trending Recipe Dropdown (limited to 3 items) */}
       <FloatingLabel
         controlId="floatingSelectTrending"
         label="Trending Recipes"
@@ -42,15 +42,16 @@ export default function LeftPanelSearch({
         >
           <option value="All">Select a recipe</option>
           {recipesContext &&
-            recipesContext.map((recipe) => (
-              <option key={recipe.id} value={recipe.id}>
-                {recipe.title}
-              </option>
-            ))}
+            recipesContext
+              .slice(0, 3) // ✅ Limit to first 3 recipes
+              .map((recipe) => (
+                <option key={recipe.id} value={recipe.id}>
+                  {recipe.title}
+                </option>
+              ))}
         </Form.Select>
       </FloatingLabel>
 
-      {/* Your existing filters below... */}
       <FloatingLabel
         controlId="floatingSelectDuration"
         label="Duration"
