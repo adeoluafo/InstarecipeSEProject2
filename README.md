@@ -1,10 +1,10 @@
-# 📌 InstaRecipe
+# InstaRecipe
 
 InstaRecipe is a web-based recipe sharing platform that offers instant recipe suggestions based on available ingredients. Users can upload, search, filter, and manage their own recipes, and get AI-powered recommendations to reduce food waste and save time. Whether you're a guest looking for inspiration or a registered user creating your own recipe book, InstaRecipe enhances your cooking experience.
 
 ---
 
-## 🚀 Key Features
+## Key Features
 
 - Upload recipes with titles, ingredients, directions, and photos.
 - Categorize recipes by diet, cuisine, difficulty, and meal type.
@@ -15,11 +15,11 @@ InstaRecipe is a web-based recipe sharing platform that offers instant recipe su
 
 ---
 
-## ⚙️ Installation Steps
+## Installation Steps
 
 1. **Clone the Repository**
    ```bash
-   git clone https://github.com/adeoluafo/InstarecipeSEProject
+   git clone https://github.com/adeoluafo/InstarecipeSEProject2
    cd instarecipe
    ```
 
@@ -60,26 +60,52 @@ Optional:
 
 ## What Supabase Is Doing
 
-Supabase acts as the **backend** and **database** layer for InstaRecipe. It handles:
-
-1. **PostgreSQL Database**  
-   Stores all recipes, users, comments, and favorites in structured tables.
-
-2. **Authentication**  
-   Secure sign-up and login for users using email/password.
-
-3. **File Storage**  
-   Upload and retrieve images of recipes via Supabase storage buckets.
-
-4. **APIs for CRUD Operations**  
-   Recipes can be added, updated, deleted, or fetched via Supabase's RESTful APIs.
-
-5. **Row-Level Security (RLS)**  
-   Ensures users only access their own data (e.g., can't edit others' recipes).
+Supabase serves as the **backend** and **database** layer for InstaRecipe. It provides an all-in-one solution including a hosted PostgreSQL database, authentication, file storage, and real-time API access — all integrated without managing your own server.
 
 ---
 
-## 🛠 Development Environment
+### Supabase Responsibilities in InstaRecipe
+
+1. **PostgreSQL Database**  
+   Stores all core app data including:
+   - Recipes
+   - Users
+   - Favorites
+   - Comments
+
+2. **Authentication**  
+   - Handles secure email/password sign-up and login.
+   - Manages user sessions using JWT (JSON Web Tokens).
+
+3. **File Storage**  
+   - Manages user-uploaded recipe images.
+   - Files are uploaded to Supabase Storage and served via public URLs.
+
+4. **APIs for CRUD Operations**  
+   - Every table (like `Recipes`) is automatically exposed as a RESTful API.
+   - You can use JavaScript/TypeScript with the `@supabase/supabase-js` client to query/update data.
+
+5. **Row-Level Security (RLS)**  
+   - Ensures data protection per user.
+   - For example, users can only view/edit their own recipes and favorites.
+
+---
+
+### What You Need to Work with Supabase
+
+#### 1. **Create a Supabase Project**
+
+- Go to [https://supabase.com]
+- Create a new project
+- Copy your **Project URL** and **Anon/Public API Key**
+
+#### 2. **Install the Supabase JS Client**
+
+```bash
+npm install @supabase/supabase-js
+
+
+##  Development Environment
 
 - Visual Studio Code (VS Code)
 - GitHub (version control)
@@ -91,7 +117,7 @@ Supabase acts as the **backend** and **database** layer for InstaRecipe. It hand
 
 ---
 
-## 👥 Team Members & Responsibilities
+## Team Members & Responsibilities
 
 **Agustina Lorda**  
 Frontend development (React.js, CSS), user authentication, and UI responsiveness.
@@ -104,6 +130,6 @@ AI-powered recommendation system using OpenAI API.
 
 ---
 
-## 📬 Contact
+=======
+# InstarecipeSEProject2
 
-For questions or collaboration, reach out via Canvas or GitHub.
